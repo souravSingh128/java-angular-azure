@@ -49,21 +49,21 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: java-app
-          path: target/*.jar
+          name: java-angular-app
+          path: '${{ github.workspace }}/target/demo-0.0.1-SNAPSHOT.jar'
 
   deploy:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'Development'
+      name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: java-app
+          name: java-angular-app
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
